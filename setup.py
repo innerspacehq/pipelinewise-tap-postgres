@@ -20,6 +20,7 @@ setup(name='pipelinewise-tap-postgres',
           'pipelinewise-singer-python==1.*',
           'psycopg2-binary==2.8.6',
           'strict-rfc3339==0.7',
+          'isodate==0.6.0'
       ],
       extras_require={
           "test": [

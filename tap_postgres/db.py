@@ -7,6 +7,7 @@ import pytz
 import psycopg2
 import psycopg2.extras
 import singer
+import isodate
 
 from typing import List
 from dateutil.parser import parse
@@ -131,6 +132,10 @@ def selected_value_to_singer_value_impl(elem, sql_datatype):
         cleaned_elem = str(elem)
     elif isinstance(elem, str):
         cleaned_elem = elem
+    elif sql_datatype == 'string':
+        cleaned_elem = (elem.tobytes()).decode('utf-8')
+    elif sql_datatype == 'interval':
+        cleaned_elem = isodate.duration_isoformat(elem)
     elif isinstance(elem, decimal.Decimal):
         # NB> We cast NaN's to NULL as wal2json does not support them and now we are at least consistent(ly wrong)
         if elem.is_nan():
