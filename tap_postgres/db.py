@@ -133,7 +133,7 @@ def selected_value_to_singer_value_impl(elem, sql_datatype):
     elif isinstance(elem, str):
         cleaned_elem = elem
     elif sql_datatype == 'string':
-        cleaned_elem = (elem.tobytes()).decode('utf-8')
+        cleaned_elem = bytes(elem.tobytes()).hex()
     elif sql_datatype == 'interval':
         cleaned_elem = isodate.duration_isoformat(elem)
     elif isinstance(elem, decimal.Decimal):
